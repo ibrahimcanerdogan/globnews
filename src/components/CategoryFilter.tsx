@@ -10,10 +10,14 @@ function CategoryFilter() {
 
   const handleCategoryChange = (category: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (category === 'general') {
-      params.delete('category');
+    if (currentCategory === category) {
+      // If clicking the same category, set it to general
+      params.set('category', 'general');
+      params.set('page', '1');
     } else {
+      // If clicking a different category, set it
       params.set('category', category);
+      params.set('page', '1');
     }
     router.push(`/?${params.toString()}`);
   };

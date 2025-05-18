@@ -27,9 +27,12 @@ const api = axios.create({
 });
 
 export const newsService = {
-  async getTopHeadlines(category?: Category, query?: string) {
+  async getTopHeadlines(category?: Category, query?: string, page: number = 1, pageSize: number = 9) {
     try {
-      const params: Record<string, string> = {};
+      const params: Record<string, string> = {
+        page: page.toString(),
+        pageSize: pageSize.toString(),
+      };
 
       if (category) {
         params.category = category;
@@ -49,10 +52,12 @@ export const newsService = {
     }
   },
 
-  async searchNews(query: string) {
+  async searchNews(query: string, page: number = 1, pageSize: number = 9) {
     try {
       const params = {
         q: query,
+        page: page.toString(),
+        pageSize: pageSize.toString(),
       };
 
       console.log('Searching news with params:', params);

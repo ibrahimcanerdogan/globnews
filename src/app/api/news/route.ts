@@ -7,22 +7,28 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get('q');
   const category = searchParams.get('category');
+  const page = searchParams.get('page') || '1';
+  const pageSize = searchParams.get('pageSize') || '9';
   const endpoint = query ? '/everything' : '/top-headlines';
 
   try {
     let params: URLSearchParams;
     
     if (query) {
-      // For /everything endpoint, only use the search query
+      // For /everything endpoint, use search query and pagination
       params = new URLSearchParams({
         apiKey: API_KEY,
-        q: query
+        q: query,
+        page,
+        pageSize
       });
     } else {
-      // For /top-headlines endpoint, use category and country
+      // For /top-headlines endpoint, use category, country and pagination
       params = new URLSearchParams({
         apiKey: API_KEY,
         country: 'us',
+        page,
+        pageSize,
         ...(category && { category })
       });
     }
