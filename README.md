@@ -32,7 +32,7 @@ GlobNews is a modern news aggregation platform built with Next.js, providing use
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/globnews.git
+git clone https://github.com/ibrahimcanerdogan/globnews.git
 cd globnews
 ```
 
