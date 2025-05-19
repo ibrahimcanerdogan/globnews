@@ -16,8 +16,6 @@ function NewsList() {
   const [currentPage, setCurrentPage] = useState(pageParam ? parseInt(pageParam) : 1);
   const pageSize = 9;
   const prevCategoryRef = useRef(category);
-  const [categoryState, setCategory] = useState(category);
-  const [queryState, setQuery] = useState(query);
 
   useEffect(() => {
     if (prevCategoryRef.current !== category) {
@@ -37,13 +35,6 @@ function NewsList() {
       router.push(`/?${params.toString()}`);
     }
   }, [category, query, router]);
-
-  useEffect(() => {
-    const categoryParam = searchParams.get('category') as Category;
-    const queryParam = searchParams.get('q');
-    if (categoryParam) setCategory(categoryParam);
-    if (queryParam) setQuery(queryParam);
-  }, [searchParams]);
 
   useEffect(() => {
     if (!category && !query) {
