@@ -16,6 +16,8 @@ function NewsList() {
   const [currentPage, setCurrentPage] = useState(pageParam ? parseInt(pageParam) : 1);
   const pageSize = 9;
   const prevCategoryRef = useRef(category);
+  const [categoryState, setCategory] = useState(category);
+  const [queryState, setQuery] = useState(query);
 
   useEffect(() => {
     if (prevCategoryRef.current !== category) {
@@ -26,6 +28,22 @@ function NewsList() {
       prevCategoryRef.current = category;
     }
   }, [category, router, searchParams]);
+
+  useEffect(() => {
+    if (category || query) {
+      const params = new URLSearchParams();
+      if (category) params.set('category', category);
+      if (query) params.set('q', query);
+      router.push(`/?${params.toString()}`);
+    }
+  }, [category, query, router]);
+
+  useEffect(() => {
+    const categoryParam = searchParams.get('category') as Category;
+    const queryParam = searchParams.get('q');
+    if (categoryParam) setCategory(categoryParam);
+    if (queryParam) setQuery(queryParam);
+  }, [searchParams]);
 
   useEffect(() => {
     if (!category && !query) {
@@ -124,19 +142,18 @@ function NewsList() {
             key={article.url}
             className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
           >
-            {article.urlToImage && (
-              <div className="relative h-48">
-                <Image
-                  src={article.urlToImage}
-                  alt={article.title}
-                  fill
-                  className="object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = '/placeholder-image.jpg';
-                  }}
-                />
-              </div>
-            )}
+            <div className="relative w-full h-48">
+              <Image
+                src={article.urlToImage || '/placeholder.jpg'}
+                alt={article.title}
+                fill
+                className="object-cover rounded-t-lg"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/placeholder.jpg';
+                }}
+              />
+            </div>
             <div className="p-4">
               <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white line-clamp-2">
                 {article.title}
