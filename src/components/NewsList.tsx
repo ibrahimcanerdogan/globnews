@@ -140,7 +140,7 @@ function NewsList() {
         {data.articles.map((article: NewsArticle) => (
           <article
             key={article.url}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+            className="bg-gray-100 dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
           >
             <div className="relative w-full h-48">
               <Image
@@ -154,14 +154,14 @@ function NewsList() {
                 }}
               />
             </div>
-            <div className="p-4">
-              <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white line-clamp-2">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white line-clamp-2">
                 {article.title}
               </h2>
-              <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+              <p className="text-gray-700 dark:text-gray-200 mb-4 line-clamp-3">
                 {article.description}
               </p>
-              <div className="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400">
+              <div className="flex justify-between items-center text-sm text-gray-600 dark:text-gray-300">
                 <span className="truncate max-w-[150px]">{article.source.name}</span>
                 <span>
                   {new Date(article.publishedAt).toLocaleDateString('en-US')}
@@ -171,7 +171,7 @@ function NewsList() {
                 href={article.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-block text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
+                className="mt-4 inline-block text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
               >
                 Read More →
               </a>
