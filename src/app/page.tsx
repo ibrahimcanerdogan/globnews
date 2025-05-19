@@ -15,10 +15,22 @@ export default function Home() {
         </Link>
       </div>
       <div className="mb-12">
-        <SearchBar />
+        <Suspense fallback={
+          <div className="w-full max-w-2xl mx-auto h-10 bg-gray-700 rounded-lg animate-pulse"></div>
+        }>
+          <SearchBar />
+        </Suspense>
       </div>
       <div className="mb-12">
-        <CategoryFilter />
+        <Suspense fallback={
+          <div className="flex flex-wrap gap-2 justify-center">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="w-24 h-10 bg-gray-700 rounded-full animate-pulse"></div>
+            ))}
+          </div>
+        }>
+          <CategoryFilter />
+        </Suspense>
       </div>
       <Suspense fallback={
         <div className="flex justify-center items-center min-h-[400px]">
