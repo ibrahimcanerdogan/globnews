@@ -5,6 +5,7 @@ import useSWR from 'swr';
 import { newsService, type NewsArticle } from '@/services/newsService';
 import { Category } from '@/config/api';
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 
 function NewsList() {
   const router = useRouter();
@@ -32,7 +33,7 @@ function NewsList() {
       params.set('category', 'general');
       router.replace(`?${params.toString()}`);
     }
-  }, []);
+  }, [category, query, router, searchParams]);
 
   const { data, error, isLoading } = useSWR(
     ['news', category, query, currentPage],
@@ -125,10 +126,11 @@ function NewsList() {
           >
             {article.urlToImage && (
               <div className="relative h-48">
-                <img
+                <Image
                   src={article.urlToImage}
                   alt={article.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                   onError={(e) => {
                     e.currentTarget.src = '/placeholder-image.jpg';
                   }}
